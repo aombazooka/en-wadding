@@ -1,0 +1,13 @@
+# รหัสผ่าน admin และค่าฐานข้อมูล — ห้ามขึ้น git (ใช้ includes/config.example.php เป็นต้นแบบ)
+includes/config.php
+
+# รูปที่แขกอัปโหลด
+uploads/*
+!uploads/.htaccess
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
