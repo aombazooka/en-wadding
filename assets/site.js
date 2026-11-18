@@ -57,40 +57,21 @@
 
   /* ---------- Envelope / cover ---------- */
   var env = $('envelope'), cover = $('cover'), main = $('main');
-  var letter = $('envLetter');
-  var opened = false, zoomed = false, entered = false, enterTimer = null;
-  // 1) tap: seal breaks, flap opens, the card slides out
+  var opened = false;
+  // tap: seal breaks, flap opens, the Save-the-date letter slides out, then the site fades in
   function openCard(){
     if(opened) return; opened = true;
     env.classList.add('open');
     playMusic(); // inside the tap → browsers allow audio
-    setTimeout(zoomCard, 1750);
+    setTimeout(function(){
+      cover.classList.add('gone');
+      body.classList.remove('locked');
+      body.classList.add('opened');
+      main.classList.add('show');
+      startReveal();
+      setTimeout(function(){ var v = cover.querySelector('video'); if(v) v.pause(); }, 1400);
+    }, 2000);
   }
-  // 2) the card moves to the centre of the screen and grows so guests can read it
-  function zoomCard(){
-    var r = letter.getBoundingClientRect();
-    var s = Math.min(window.innerWidth * .86 / r.width, window.innerHeight * .76 / r.height);
-    var dy = -.68 * r.height + (window.innerHeight * .47 - (r.top + r.height / 2));
-    letter.style.setProperty('--dy', dy + 'px');
-    letter.style.setProperty('--s', s);
-    env.classList.add('zoom');
-    cover.classList.add('zooming');
-    zoomed = true;
-    enterTimer = setTimeout(enterSite, 5200);
-  }
-  // 3) fade into the site (automatically, or on tap)
-  function enterSite(){
-    if(entered) return; entered = true;
-    clearTimeout(enterTimer);
-    cover.classList.add('gone');
-    body.classList.remove('locked');
-    body.classList.add('opened');
-    main.classList.add('show');
-    startReveal();
-    setTimeout(function(){ var v = cover.querySelector('video'); if(v) v.pause(); }, 1400);
-  }
-  cover.addEventListener('click', function(){ if(zoomed) enterSite(); });
-  document.addEventListener('keydown', function(e){ if(zoomed && !entered && (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape')) enterSite(); });
   env.addEventListener('click', openCard);
   env.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openCard(); } });
 

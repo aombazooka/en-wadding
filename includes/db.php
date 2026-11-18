@@ -6,13 +6,21 @@ function app_config(): array
     static $config = null;
     if ($config === null) {
         if (!is_file(__DIR__ . '/config.php')) {
-            throw new RuntimeException('Missing includes/config.php — copy includes/config.example.php and edit it.');
+            throw new RuntimeException('ไม่พบไฟล์ includes/config.php บนเซิร์ฟเวอร์ — คัดลอก includes/config.example.php เป็น config.php แล้วใส่ค่าฐานข้อมูลและรหัสผ่าน');
         }
-        $config = require __DIR__ . '/config.php';
-        if (($config['admin_password'] ?? '') === 'CHANGE_ME') {
-            throw new RuntimeException('Set admin_password in includes/config.php');
+        $loaded = require __DIR__ . '/config.php';
+        if (!is_array($loaded)) {
+            throw new RuntimeException('includes/config.php ต้อง return [ ... ] เป็น array (ดูตัวอย่างใน config.example.php)');
         }
-        date_default_timezone_set($config['timezone']);
+        $password = (string) ($loaded['admin_password'] ?? '');
+        if ($password === '' || $password === 'CHANGE_ME') {
+            throw new RuntimeException('ยังไม่ได้ตั้ง admin_password ใน includes/config.php');
+        }
+        $config = $loaded + [
+            'db_host' => '127.0.0.1', 'db_port' => 3306, 'db_name' => 'wedding_ne', 'db_user' => 'root', 'db_pass' => '',
+            'max_photo_mb' => 10, 'timezone' => 'Asia/Bangkok',
+        ];
+        date_default_timezone_set((string) $config['timezone']) || date_default_timezone_set('Asia/Bangkok');
     }
     return $config;
 }

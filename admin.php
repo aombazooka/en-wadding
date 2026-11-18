@@ -8,13 +8,30 @@ session_set_cookie_params(['httponly' => true, 'samesite' => 'Lax', 'secure' => 
 session_name('wedding_admin');
 session_start();
 
-$config    = app_config();
-$uploadDir = __DIR__ . '/uploads';
-
 function h(?string $s): string
 {
     return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8');
 }
+
+// Show a readable setup problem instead of a blank HTTP 500
+function setup_error(string $title, string $detail): void
+{
+    http_response_code(503);
+    echo '<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
+        . '<meta name="robots" content="noindex"><title>ตั้งค่าระบบ</title></head>'
+        . '<body style="font-family:system-ui,sans-serif;background:#F2E8D8;color:#3A2A21;margin:0;padding:12vh 20px">'
+        . '<div style="max-width:440px;margin:auto;background:#FBF6EE;border:1px solid #DCCAB0;border-radius:12px;padding:28px 24px;line-height:1.7">'
+        . '<h1 style="font-size:20px;margin:0 0 10px">' . h($title) . '</h1><p style="margin:0">' . h($detail) . '</p></div></body></html>';
+    exit;
+}
+
+try {
+    $config = app_config();
+} catch (Throwable $e) {
+    error_log('[admin] ' . $e->getMessage());
+    setup_error('ระบบยังตั้งค่าไม่ครบ', $e->getMessage());
+}
+$uploadDir = __DIR__ . '/uploads';
 
 function valid_photo_name(?string $f): bool
 {
@@ -58,7 +75,12 @@ if (($_POST['action'] ?? '') === 'logout') {
 $loggedIn = !empty($_SESSION['admin']);
 
 if ($loggedIn) {
-    $pdo = db();
+    try {
+        $pdo = db();
+    } catch (Throwable $e) {
+        error_log('[admin] db: ' . $e->getMessage());
+        setup_error('เชื่อมต่อฐานข้อมูลไม่ได้', 'ตรวจค่า db_host, db_name, db_user, db_pass ใน includes/config.php ให้ตรงกับฐานข้อมูลบนโฮสต์ และต้องสร้างฐานข้อมูลไว้ก่อน (ตาราง wishes ระบบสร้างให้เอง)');
+    }
 
     // ---- Serve a guest photo (admin only) ----
     if (isset($_GET['photo'])) {

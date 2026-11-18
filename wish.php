@@ -35,7 +35,12 @@ if (!empty($_POST['website'])) {
     respond(200, ['ok' => true]);
 }
 
-$config    = app_config();
+try {
+    $config = app_config();
+} catch (Throwable $e) {
+    error_log('[wish] ' . $e->getMessage());
+    respond(503, ['ok' => false, 'error' => 'ระบบยังไม่พร้อมรับคำอวยพร กรุณาแจ้งเจ้าของงาน']);
+}
 $name      = one_line('name', 120);
 $invitedAs = one_line('invited_as', 120);
 $message   = trim(str_replace("\r\n", "\n", (string) ($_POST['message'] ?? '')));
