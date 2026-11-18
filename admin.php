@@ -117,7 +117,8 @@ if ($loggedIn) {
     $stats = $pdo->query('SELECT COUNT(*) AS total, COALESCE(SUM(photo IS NOT NULL), 0) AS with_photo FROM wishes')->fetch();
 
     // ---- List with filter/search ----
-    $filter = ($_GET['f'] ?? '') === 'photo' ? 'photo' : 'all';
+    $filters = ['all' => 'ทั้งหมด', 'photo' => 'มีรูป'];
+    $filter  = isset($filters[$_GET['f'] ?? '']) ? $_GET['f'] : 'all';
     $search = trim((string) ($_GET['q'] ?? ''));
     $where  = [];
     $params = [];
@@ -133,7 +134,7 @@ if ($loggedIn) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $rows = $stmt->fetchAll();
-    $back = http_build_query(array_filter(['f' => $filter === 'photo' ? 'photo' : null, 'q' => $search ?: null]));
+    $back = http_build_query(array_filter(['f' => $filter !== 'all' ? $filter : null, 'q' => $search ?: null]));
 }
 ?>
 <!doctype html>
@@ -145,14 +146,14 @@ if ($loggedIn) {
 <title>Wishes Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&family=IBM+Plex+Sans+Thai:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Taviraj:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#F7F2F1;--blush:#EEE2E0;--rose:#D6B5B3;--deep:#9A6869;--ink:#3B3233;--muted:#867779;--line:#E6DAD8;--white:#fff}
+  :root{--bg:#F2E8D8;--blush:#E9DCC6;--rose:#CDAE7E;--deep:#3F2A20;--ink:#3A2A21;--muted:#76604F;--line:#DCCAB0;--white:#FBF6EE;--gold:#A8854F}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans Thai',system-ui,sans-serif;font-weight:300;line-height:1.6;font-size:14px}
+  body{background:var(--bg);color:var(--ink);font-family:'Taviraj',Georgia,serif;font-weight:300;line-height:1.6;font-size:14px}
   a{color:var(--deep)}
   .wrap{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
-  .kicker{font-family:'Jost',sans-serif;letter-spacing:.32em;text-transform:uppercase;font-size:11px;color:var(--deep)}
+  .kicker{font-family:'Cormorant Garamond',serif;letter-spacing:.32em;text-transform:uppercase;font-size:11px;color:var(--deep)}
   h1{font-weight:400;font-size:24px}
   header{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:22px}
   .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:6px;border:1px solid var(--ink);background:var(--ink);color:#fff;
@@ -161,7 +162,7 @@ if ($loggedIn) {
   .btn-row{display:flex;gap:8px;flex-wrap:wrap}
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:22px;max-width:420px}
   .stat{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
-  .stat b{display:block;font-family:'Jost',sans-serif;font-weight:300;font-size:30px;line-height:1.2}
+  .stat b{display:block;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;line-height:1.2}
   .stat small{color:var(--muted);font-size:12px}
   .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:14px}
   .tabs{display:flex;gap:6px}
@@ -186,7 +187,10 @@ if ($loggedIn) {
   .login h1{margin:6px 0 18px}
   .login input{border-radius:6px;margin-bottom:12px}
   .login .btn{width:100%;justify-content:center}
-  .err{color:var(--deep);font-size:13px;margin-bottom:10px}
+  .err{color:#B4766F;font-size:13px;margin-bottom:10px}
+  .kicker{color:var(--gold)}
+  .stat.hi{background:var(--deep);border-color:var(--deep);color:#F3EADB}
+  .stat.hi small{color:rgba(243,234,219,.7)}
 </style>
 </head>
 <body>
@@ -221,17 +225,18 @@ if ($loggedIn) {
     </header>
 
     <div class="stats">
-      <div class="stat"><b><?= (int) $stats['total'] ?></b><small>คำอวยพรทั้งหมด</small></div>
+      <div class="stat hi"><b><?= (int) $stats['total'] ?></b><small>คำอวยพรทั้งหมด</small></div>
       <div class="stat"><b><?= (int) $stats['with_photo'] ?></b><small>แนบรูปมาด้วย</small></div>
     </div>
 
     <div class="toolbar">
       <div class="tabs">
-        <a class="<?= $filter === 'all' ? 'on' : '' ?>" href="?<?= h(http_build_query(array_filter(['q' => $search ?: null]))) ?>">ทั้งหมด</a>
-        <a class="<?= $filter === 'photo' ? 'on' : '' ?>" href="?<?= h(http_build_query(array_filter(['f' => 'photo', 'q' => $search ?: null]))) ?>">มีรูป</a>
+        <?php foreach ($filters as $key => $label): ?>
+          <a class="<?= $filter === $key ? 'on' : '' ?>" href="?<?= h(http_build_query(array_filter(['f' => $key !== 'all' ? $key : null, 'q' => $search ?: null]))) ?>"><?= h($label) ?></a>
+        <?php endforeach; ?>
       </div>
       <form class="search" method="get">
-        <?php if ($filter === 'photo'): ?><input type="hidden" name="f" value="photo"><?php endif; ?>
+        <?php if ($filter !== 'all'): ?><input type="hidden" name="f" value="<?= h($filter) ?>"><?php endif; ?>
         <input type="search" name="q" value="<?= h($search) ?>" placeholder="ค้นหาชื่อ / ข้อความ">
       </form>
     </div>

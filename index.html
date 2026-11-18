@@ -2,639 +2,412 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>แน็ป & อาย · Wedding</title>
-<meta name="description" content="ขอเรียนเชิญร่วมงานมงคลสมรส แน็ป & อาย · วันอาทิตย์ที่ 10 มกราคม 2570">
-<meta name="theme-color" content="#F7F2F1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eye & Nap · Wedding Invitation</title>
+<meta name="description" content="ขอเรียนเชิญร่วมงานมงคลสมรส อาย & แน๊ป · วันอาทิตย์ที่ 10 มกราคม 2570">
+<meta name="theme-color" content="#2F1F18">
+<meta property="og:title" content="Eye & Nap · Wedding Invitation">
+<meta property="og:description" content="ขอเรียนเชิญร่วมงานมงคลสมรส อาย & แน๊ป · วันอาทิตย์ที่ 10 มกราคม 2570">
+<meta property="og:image" content="assets/card/front.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=IBM+Plex+Sans+Thai:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    /* Dusty rose palette */
-    --bg:#F7F2F1;
-    --paper:#FFFFFF;
-    --blush:#EEE2E0;
-    --rose:#D6B5B3;
-    --rose-2:#C29B9A;
-    --deep:#9A6869;
-    --ink:#3B3233;
-    --muted:#867779;
-    --line:#E6DAD8;
-    --en:'Jost', 'IBM Plex Sans Thai', sans-serif;
-    --th:'IBM Plex Sans Thai', 'Jost', system-ui, sans-serif;
-    --radius:6px;
-    --gutter:clamp(20px, 5vw, 56px);
-    --section:clamp(72px, 10vw, 128px);
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);font-family:var(--th);font-weight:300;line-height:1.75;-webkit-font-smoothing:antialiased;font-size:clamp(15px, 1.1vw, 17px)}
-  body.locked{overflow:hidden}
-  button{font:inherit;cursor:pointer}
-  a{color:inherit}
-  img{max-width:100%;display:block}
-
-  /* ---------- Cover / Envelope ---------- */
-  .cover{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;
-    background:var(--blush);padding:24px;transition:opacity .9s ease, visibility .9s ease}
-  .cover.gone{opacity:0;visibility:hidden}
-  .cover-top{text-align:center}
-  .kicker{font-family:var(--en);letter-spacing:.32em;text-transform:uppercase;font-size:11px;font-weight:400;color:var(--deep)}
-  .cover-top .to{margin-top:10px;font-size:17px;font-weight:400}
-  .cover-hint{font-size:12px;color:var(--muted);letter-spacing:.08em;animation:pulse 2.4s ease-in-out infinite}
-  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
-
-  .envelope{position:relative;width:min(380px,86vw);aspect-ratio:3/2;perspective:1200px;cursor:pointer;
-    filter:drop-shadow(0 20px 28px rgba(110,70,72,.16))}
-  .env-back{position:absolute;inset:0;background:#C9A5A4;border-radius:4px}
-  .env-card{position:absolute;left:6%;right:6%;top:6%;bottom:6%;background:var(--paper);border-radius:2px;z-index:2;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-    transition:transform 1s cubic-bezier(.2,.7,.2,1) .55s}
-  .env-card .names{font-family:var(--en);font-weight:300;font-size:24px;letter-spacing:.22em;margin:8px 0 6px;padding-left:.22em}
-  .env-card .names span{color:var(--deep)}
-  .env-card .date{font-family:var(--en);font-size:11px;color:var(--muted);letter-spacing:.25em}
-  .env-front{position:absolute;inset:0;z-index:3;border-radius:4px;background:#D9BBB9;
-    clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%)}
-  .env-flap{position:absolute;left:0;right:0;top:0;height:62%;z-index:4;transform-origin:top center;
-    background:#CFAEAC;clip-path:polygon(0 0,100% 0,50% 100%);
-    transition:transform .7s ease, z-index 0s linear .35s}
-  .seal{position:absolute;z-index:5;left:50%;top:56%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;
-    border:none;background:var(--deep);color:#F7ECEB;font-family:var(--en);font-size:13px;letter-spacing:.12em;
-    box-shadow:0 4px 12px rgba(90,50,52,.28), inset 0 0 0 4px rgba(255,255,255,.12);transition:transform .4s ease, opacity .4s ease}
-  .envelope:hover .seal{transform:translate(-50%,-50%) scale(1.06)}
-  .envelope.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.6)}
-  .envelope.open .env-flap{transform:rotateX(180deg);z-index:1}
-  .envelope.open .env-card{transform:translateY(-58%)}
-
-  /* ---------- Layout ---------- */
-  main{opacity:0;transition:opacity 1s ease .2s}
-  main.show{opacity:1}
-  .container{max-width:1120px;margin:0 auto;padding:0 var(--gutter)}
-  section{padding:var(--section) 0}
-  .sec-head{display:flex;align-items:baseline;gap:14px;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:clamp(28px,4vw,48px)}
-  .sec-head .idx{font-family:var(--en);font-size:12px;color:var(--deep);letter-spacing:.1em}
-  .sec-head h2{font-weight:400;font-size:clamp(24px,2.6vw,32px);line-height:1.3;flex:1}
-  .sec-head .en{font-family:var(--en);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
-  .muted{color:var(--muted)}
-
-  .reveal{opacity:0;transform:translateY(16px);transition:opacity .9s ease, transform .9s ease}
-  .reveal.in{opacity:1;transform:none}
-
-  .ph{width:100%;height:100%;display:flex;align-items:flex-end;justify-content:flex-start;padding:12px 14px;
-    color:rgba(255,255,255,.9);font-family:var(--en);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
-  .p1{background:linear-gradient(165deg,#E4D0CE,#B98F8F)}
-  .p2{background:linear-gradient(165deg,#EDE2DE,#C6A8A1)}
-  .p3{background:linear-gradient(165deg,#E9DADA,#C8A3A5)}
-  .p4{background:linear-gradient(165deg,#DCC4C3,#A77C7E)}
-  .p5{background:linear-gradient(165deg,#F0E6E3,#CDB2AD)}
-
-  /* Hero */
-  .hero{padding:22px 0 var(--section)}
-  .hero-photo{aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden;width:100%}
-  .hero-photo img{width:100%;height:100%;object-fit:cover}
-  .hero-meta{text-align:center;margin-top:36px}
-  .hero-names{font-family:var(--en);font-weight:300;font-size:clamp(40px,7vw,92px);letter-spacing:.14em;line-height:1.05;margin:14px 0 6px;padding-left:.14em}
-  .hero-names span{display:block;font-size:.4em;color:var(--deep);letter-spacing:0;margin:8px 0;padding:0}
-  .hero-th{font-size:clamp(15px,1.4vw,18px);color:var(--muted)}
-  .date-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:18px;margin:30px auto 0;max-width:420px}
-  .date-row i{height:1px;background:var(--rose)}
-  .date-row b{font-family:var(--en);font-weight:400;font-size:clamp(22px,2.4vw,30px);letter-spacing:.12em}
-  .hero-date-th{margin-top:8px;font-size:clamp(14px,1.2vw,16px)}
-  .countdown{display:grid;grid-template-columns:repeat(4,1fr);margin:34px auto 0;max-width:420px;text-align:center}
-  .countdown div{padding:4px 0}
-  .countdown div + div{border-left:1px solid var(--line)}
-  .countdown b{display:block;font-family:var(--en);font-weight:300;font-size:clamp(28px,2.8vw,36px);line-height:1.15}
-  .countdown small{font-size:11px;color:var(--muted)}
-
-  /* Invitation */
-  .invite-grid{display:grid;gap:28px}
-  .couple-line{margin-top:14px;font-size:clamp(22px,2.6vw,34px);font-weight:400;line-height:1.5}
-  .couple-line span{color:var(--deep);font-family:var(--en);font-weight:300;margin:0 10px}
-  .parents{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-  .parents div{background:var(--paper);padding:18px;font-size:13px;color:var(--muted)}
-  .parents b{display:block;color:var(--ink);font-weight:400;font-size:14px;margin-top:2px}
-
-  /* Couple */
-  .couple{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .person .photo{aspect-ratio:3/4;border-radius:var(--radius);overflow:hidden;margin-bottom:14px}
-  .person .photo img{width:100%;height:100%;object-fit:cover}
-  .person .role{font-family:var(--en);letter-spacing:.26em;font-size:10px;text-transform:uppercase;color:var(--deep)}
-  .person h3{font-weight:400;font-size:clamp(20px,2vw,26px);line-height:1.4;margin-top:2px}
-  .person h3 .en-name{font-family:var(--en);font-weight:300;color:var(--muted);letter-spacing:.06em;margin-left:6px;font-size:.8em}
-  .person p{font-size:13px;color:var(--muted)}
-  .story{grid-column:1 / -1;margin-top:18px;padding-left:16px;border-left:2px solid var(--rose);color:var(--muted)}
-
-  /* Gallery */
-  .gallery{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-  .gallery button{border:none;border-radius:var(--radius);overflow:hidden;background:var(--blush);aspect-ratio:4/5;padding:0}
-  .gallery button.wide{grid-column:span 2;aspect-ratio:16/10}
-  .gallery img{width:100%;height:100%;object-fit:cover}
-  .gallery .ph, .gallery img{transition:transform .7s ease}
-  .gallery button:hover .ph, .gallery button:hover img{transform:scale(1.03)}
-  .lightbox{position:fixed;inset:0;z-index:60;background:rgba(40,30,31,.86);display:flex;align-items:center;justify-content:center;padding:24px;
-    opacity:0;visibility:hidden;transition:opacity .3s ease}
-  .lightbox.on{opacity:1;visibility:visible}
-  .lightbox .ph{width:min(720px,90vw);height:min(80vh,820px);border-radius:var(--radius)}
-  .lightbox .close{position:absolute;top:14px;right:18px;background:none;border:none;color:#fff;font-size:32px;line-height:1}
-
-  /* Schedule */
-  .sched{list-style:none}
-  .sched li{display:grid;grid-template-columns:80px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
-  .sched li:first-child{padding-top:0}
-  .sched time{font-family:var(--en);font-weight:300;font-size:22px;line-height:1.3;color:var(--deep)}
-  .sched b{display:block;font-weight:400;font-size:16px}
-  .sched small{font-size:13px;color:var(--muted)}
-
-  /* Venue */
-  .info{display:grid}
-  .info > div{display:grid;grid-template-columns:92px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
-  .info > div:first-child{padding-top:0}
-  .info dt{font-family:var(--en);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding-top:4px}
-  .info dd{font-size:15px}
-  .info dd small{display:block;color:var(--muted);font-size:13px}
-  .swatches{display:flex;gap:8px;margin-top:8px}
-  .swatches span{width:26px;height:26px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
-  .map{margin:26px 0 18px;aspect-ratio:16/10;border-radius:var(--radius);overflow:hidden;background:var(--blush);border:1px solid var(--line)}
-  .map iframe{width:100%;height:100%;border:0;display:block}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:var(--radius);border:1px solid var(--ink);
-    background:var(--ink);color:#fff;font-size:14px;font-weight:400;text-decoration:none;transition:background .25s, color .25s, border-color .25s}
-  .btn:hover{background:var(--deep);border-color:var(--deep)}
-  .btn.ghost{background:transparent;color:var(--ink);border-color:var(--rose-2)}
-  .btn.ghost:hover{border-color:var(--ink)}
-  .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-
-  /* Wishes */
-  .wish-wrap{background:var(--blush)}
-  .wish-wrap .sec-head{border-color:var(--rose)}
-  .wish-grid{display:grid;gap:8px}
-  .wish-intro p{max-width:34ch}
-  form{display:grid;gap:20px;margin-top:18px}
-  label,.field-label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
-  input,textarea{width:100%;font:inherit;font-weight:300;color:var(--ink);padding:13px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
-  input:focus,textarea:focus{border-color:var(--deep)}
-  textarea{resize:vertical;min-height:110px}
-  .picker{position:relative;display:flex;align-items:center;justify-content:center;min-height:130px;margin:0;border:1px dashed var(--rose-2);
-    border-radius:var(--radius);background:var(--paper);cursor:pointer;overflow:hidden;color:var(--ink);transition:border-color .2s}
-  .picker:hover{border-color:var(--deep)}
-  .picker:focus-within{border-color:var(--deep);outline:2px solid var(--deep);outline-offset:2px}
-  .picker input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;padding:0;border:0}
-  .picker-empty{display:flex;flex-direction:column;align-items:center;font-size:14px;padding:22px;text-align:center;pointer-events:none}
-  .picker-empty b{font-family:var(--en);font-weight:300;font-size:30px;line-height:1;color:var(--deep);margin-bottom:4px}
-  .picker-empty small{font-size:12px;color:var(--muted)}
-  .picker img{display:block;width:100%;max-height:340px;object-fit:contain;background:var(--blush);pointer-events:none}
-  .picker img[hidden], [hidden]{display:none!important}
-  .picker.has{border-style:solid;border-color:var(--line)}
-  .picker.has .picker-empty{display:none}
-  .link-btn{background:none;border:none;color:var(--deep);font-size:13px;text-decoration:underline;text-underline-offset:3px;padding:6px 0}
-  form .btn{width:100%}
-  .thanks{display:none;margin-top:18px;background:var(--paper);border-radius:var(--radius);padding:40px 22px;text-align:center}
-  .thanks.on{display:block}
-  .thanks h3{font-weight:400;font-size:22px;margin:8px 0 4px}
-  .note{font-size:13px;color:var(--deep);text-align:center}
-  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-  .btn:disabled{opacity:.6;cursor:wait}
-
-  /* Gift */
-  .gift-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:32px 22px;display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:26px}
-  .qr{width:220px;height:220px;max-width:100%;border-radius:4px;box-shadow:0 0 0 1px var(--line)}
-  .gift-info{display:flex;flex-direction:column;align-items:center}
-  .acct-name{font-size:17px;font-weight:400;margin-top:4px}
-  .acct-row{display:flex;gap:12px;align-items:baseline;font-family:var(--en);font-size:20px;letter-spacing:.06em;margin:2px 0 20px}
-  .gift-card .btn{min-width:200px}
-  .hint{font-size:12px;color:var(--muted);margin-top:12px}
-
-  footer{text-align:center;padding:64px 22px 96px;border-top:1px solid var(--line)}
-  footer .names{font-family:var(--en);font-weight:300;font-size:22px;letter-spacing:.3em;padding-left:.3em}
-  footer .names span{color:var(--deep)}
-  footer p{margin-top:10px;font-size:13px;color:var(--muted)}
-
-  /* Floating button */
-  .fab{position:fixed;left:50%;bottom:18px;z-index:40;transform:translate(-50%,120px);padding:12px 26px;border-radius:999px;
-    background:var(--ink);color:#fff;text-decoration:none;font-size:14px;box-shadow:0 8px 24px rgba(59,50,51,.25);transition:transform .45s ease}
-  .fab.on{transform:translate(-50%,0)}
-
-  /* ---------- Tablet ≥ 760px ---------- */
-  @media (min-width:760px){
-    .couple{gap:24px}
-    .invite-grid{grid-template-columns:1.3fr 1fr;align-items:end;gap:48px}
-    /* Gallery: 3 columns, first photo is a 2×2 feature → rows [1 1 2][1 1 3][4 5 6] */
-    .gallery{grid-template-columns:repeat(3,1fr);grid-auto-rows:clamp(150px,24vw,240px);gap:8px}
-    .gallery button,.gallery button.wide{aspect-ratio:auto;grid-column:auto}
-    .gallery button:first-child{grid-column:span 2;grid-row:span 2}
-    .gift-card{flex-direction:row;justify-content:center;gap:48px;text-align:left;padding:40px}
-    .gift-info{align-items:flex-start}
-    .gift-card .kicker{margin-top:0!important}
-    .fab{left:auto;right:28px;transform:translateY(120px)}
-    .fab.on{transform:none}
-  }
-
-  /* ---------- Desktop ≥ 1024px ---------- */
-  @media (min-width:1024px){
-    /* Hero: photo left, names right */
-    .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:72px;padding-top:56px}
-    .hero-photo{width:min(100%, calc((100vh - 112px) * .8));justify-self:end}
-    .hero-meta{margin-top:0}
-
-    /* Couple: groom | story | bride */
-    .couple{grid-template-columns:1fr .8fr 1fr;gap:48px;align-items:start}
-    .couple .story{align-self:center}
-    .couple .groom{order:1}
-    .couple .story{order:2;grid-column:auto;margin:0;padding:0;border:0;text-align:center;font-size:17px;line-height:2}
-    .couple .story::before,.couple .story::after{content:"";display:block;width:40px;height:1px;background:var(--rose);margin:24px auto}
-    .couple .bride{order:3}
-
-    /* Gallery: 4 columns, feature + banner */
-    .gallery{grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(180px,18vw,250px);gap:10px}
-    .gallery button,.gallery button.wide{aspect-ratio:auto}
-    .gallery button:first-child{grid-column:span 2;grid-row:span 2}
-    .gallery button.wide:last-child{grid-column:span 4}
-
-    /* Schedule + Venue side by side */
-    .split{display:grid;grid-template-columns:1fr 1fr;gap:80px}
-    .split > section{padding-bottom:var(--section)}
-
-    /* Wishes: intro left, form right */
-    .wish-grid{grid-template-columns:1fr 1.25fr;gap:80px;align-items:start}
-    .wish-grid .sec-head{margin-bottom:24px}
-    form,.thanks{margin-top:0}
-  }
-
-  @media (max-width:360px){
-    .btn-row{grid-template-columns:1fr}
-    .info > div{grid-template-columns:1fr;gap:2px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}
-    .reveal{opacity:1;transform:none}
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Pinyon+Script&family=Taviraj:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/video/studio.jpg">
+<link rel="preload" as="image" href="assets/card/front.jpg">
+<link rel="stylesheet" href="assets/site.css?v=5">
 </head>
 <body class="locked">
 
-<!-- ===== Cover ===== -->
+<!-- Shared SVG: wax seal + ornaments + line icons -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="wax" cx="38%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#F0D9A4"/><stop offset=".5" stop-color="#C9A05C"/><stop offset="1" stop-color="#8A6430"/>
+    </radialGradient>
+    <symbol id="seal" viewBox="0 0 100 100">
+      <path d="M50 3C62 2 71 8 80 13c10 6 17 17 16 30 3 13-1 26-10 36-8 11-21 18-35 17-14 2-27-4-36-13C6 73 2 60 4 47 3 33 9 21 19 13 28 6 38 4 50 3Z" fill="url(#wax)"/>
+      <circle cx="50" cy="50" r="31" fill="none" stroke="#8F6A33" stroke-width="1.6" opacity=".75"/>
+      <circle cx="50" cy="50" r="34.5" fill="none" stroke="#FBEBC4" stroke-width=".8" opacity=".55"/>
+      <text x="50" y="59" text-anchor="middle" font-family="Pinyon Script, cursive" font-size="25" fill="#77551F">E&amp;N</text>
+    </symbol>
+    <symbol id="corner" viewBox="0 0 60 60">
+      <g fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+        <path d="M3 57V15Q3 3 15 3h42"/><path d="M9 57V21q0-12 12-12h36"/>
+        <path d="M21 21c7 0 11 4 11 10M21 21c0 7 4 11 10 11"/><path d="M38 9c-2 4 0 8 4 8M9 38c4-2 8 0 8 4"/>
+      </g>
+      <circle cx="21" cy="21" r="2.4" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-lotus" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 12c6 10 6 23 0 34-6-11-6-24 0-34Z"/><path d="M32 46c-10-2-16-10-17-21 7 2 13 8 17 21Z"/><path d="M32 46c10-2 16-10 17-21-7 2-13 8-17 21Z"/>
+        <path d="M32 46c-12 2-22-4-26-12 8-1 18 4 26 12Z"/><path d="M32 46c12 2 22-4 26-12-8-1-18 4-26 12Z"/><path d="M16 52h32M23 57h18"/>
+      </g>
+    </symbol>
+    <symbol id="i-phan" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 44 32 11l11 33"/><path d="M24.5 34q7.5 3 15 0M27.5 25q4.5 2 9 0"/><circle cx="32" cy="8.5" r="2.2"/>
+        <path d="M12 44h40q-4 6-20 6t-20-6Z"/><path d="M27 50l-2 6h14l-2-6"/><path d="M22 58h20"/>
+      </g>
+    </symbol>
+    <symbol id="i-conch" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 30c0-10 13-17 26-13 11 3 15 12 9 18-6 6-18 7-26 3l-12 3c3-4 3-6 3-11Z"/>
+        <path d="M40 17c-4 6-2 12 7 15M31 16c-2 8 1 15 9 20"/><path d="M50 22l4-3"/>
+        <path d="M50 44c2 3 2 5 0 6-2-1-2-3 0-6ZM43 49c2 3 2 5 0 6-2-1-2-3 0-6ZM55 51c1.6 2.4 1.6 4 0 4.8-1.6-.8-1.6-2.4 0-4.8Z"/>
+      </g>
+    </symbol>
+    <symbol id="i-cheers" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <g transform="rotate(-14 24 34)"><path d="M17 14h13c0 11-3 17-6.5 17S17 25 17 14Z"/><path d="M23.5 31v20M18 51h11"/><path d="M18 21h11"/></g>
+        <g transform="rotate(14 40 34)"><path d="M34 14h13c0 11-3 17-6.5 17S34 25 34 14Z"/><path d="M40.5 31v20M35 51h11"/><path d="M35 21h11"/></g>
+        <path d="M32 9V4M27 10l-3-4M37 10l3-4"/>
+      </g>
+    </symbol>
+    <symbol id="i-rings" viewBox="0 0 64 40">
+      <g fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="25" cy="24" r="12"/><circle cx="39" cy="24" r="12"/><path d="M21 9l4-5 4 5-4 3Z"/></g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ===================== COVER ===================== -->
 <div class="cover" id="cover">
-  <div class="cover-top">
-    <div class="kicker">Wedding Invitation</div>
-    <div class="to" id="guestTo">ถึง แขกผู้มีเกียรติ</div>
-  </div>
+  <video class="cover-bg" autoplay muted loop playsinline preload="auto" poster="assets/video/studio.jpg">
+    <source src="assets/video/studio.mp4" type="video/mp4">
+  </video>
+  <div class="cover-shade"></div>
 
-  <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="แตะเพื่อเปิดการ์ด">
-    <div class="env-back"></div>
-    <div class="env-card">
-      <div class="kicker">Save the date</div>
-      <div class="names">NAP <span>&amp;</span> EYE</div>
-      <div class="date">10 . 01 . 2027</div>
+  <div class="cover-inner">
+    <div class="cover-top">
+      <p class="eyebrow">Wedding Invitation</p>
+      <p class="cover-to" id="guestTo">ถึง แขกผู้มีเกียรติ</p>
     </div>
-    <div class="env-front"></div>
-    <div class="env-flap"></div>
-    <button class="seal" tabindex="-1" aria-hidden="true">N&amp;E</button>
-  </div>
+    <div class="cover-bottom">
+    <h1 class="cover-names script">Eye <i>&amp;</i> Nap</h1>
 
-  <div class="cover-hint">แตะที่ซองเพื่อเปิดการ์ด</div>
+    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="แตะเพื่อเปิดการ์ดเชิญ">
+      <div class="env-back"></div>
+      <div class="env-letter" id="envLetter">
+        <img src="assets/card/front.jpg" alt="การ์ดเชิญงานแต่งงาน Thanyarat &amp; Adisak วันอาทิตย์ที่ 10 มกราคม 2027">
+      </div>
+      <div class="env-pocket"></div>
+      <div class="env-flap"></div>
+      <svg class="seal"><use href="#seal"/></svg>
+    </div>
+
+    <p class="cover-hint"><span>Tap to open</span> แตะที่ซองเพื่อเปิดการ์ด</p>
+    </div>
+  </div>
+  <p class="cover-next" id="coverNext">แตะเพื่อดูรายละเอียดงาน</p>
 </div>
 
-<!-- ===== Main ===== -->
+<!-- ===================== DESKTOP STAGE (≥ 960px) ===================== -->
+<aside class="stage" aria-hidden="true">
+  <div class="stage-slides" id="stageSlides">
+    <img src="assets/photos/p06.jpg" alt="" class="on" loading="lazy">
+    <img src="assets/photos/p17.jpg" alt="" loading="lazy">
+    <img src="assets/photos/p24.jpg" alt="" loading="lazy">
+    <img src="assets/photos/p30.jpg" alt="" loading="lazy">
+    <img src="assets/photos/p13.jpg" alt="" loading="lazy">
+  </div>
+  <div class="stage-text">
+    <p class="eyebrow">The wedding of</p>
+    <p class="script">Eye &amp; Nap</p>
+    <p class="stage-date">10 · 01 · 2027</p>
+    <p class="stage-th">ศูนย์พัฒนาเด็กเล็กบ้านพรุยายชี</p>
+  </div>
+</aside>
+
+<!-- ===================== MAIN CARD ===================== -->
 <main id="main">
-  <div class="container">
 
-    <section class="hero" id="top">
-      <div class="hero-photo reveal"><div class="ph p1">Cover photo</div></div>
-      <div class="hero-meta">
-        <div class="kicker reveal">The wedding of</div>
-        <h1 class="hero-names reveal">NAP<span>&amp;</span>EYE</h1>
-        <div class="hero-th reveal">แน็ป & อาย</div>
-        <div class="date-row reveal"><i></i><b>10.01.2027</b><i></i></div>
-        <div class="hero-date-th muted reveal">วันอาทิตย์ที่ 10 มกราคม 2570</div>
-        <div class="countdown reveal" aria-label="นับถอยหลังสู่วันงาน">
-          <div><b id="cd-d">0</b><small>วัน</small></div>
-          <div><b id="cd-h">0</b><small>ชั่วโมง</small></div>
-          <div><b id="cd-m">0</b><small>นาที</small></div>
-          <div><b id="cd-s">0</b><small>วินาที</small></div>
+  <!-- HERO collage -->
+  <section class="sec dark hero" id="top">
+    <p class="eyebrow rv">You're invited</p>
+    <div class="collage">
+      <div class="c-record rv" data-d="1">
+        <div class="c-env-back"></div>
+        <button class="vinyl" id="vinyl" type="button" aria-label="เปิด/ปิดเพลง">
+          <span class="vinyl-label"><img src="assets/photos/t/p08.jpg" alt=""></span>
+          <span class="vinyl-btn" aria-hidden="true"></span>
+        </button>
+        <div class="c-env-pocket"></div>
+        <svg class="c-seal"><use href="#seal"/></svg>
+      </div>
+
+      <div class="c-film rv" data-d="2">
+        <img src="assets/photos/t/p24.jpg" alt="แน๊ปและอาย ภาพขาวดำ">
+        <img src="assets/photos/t/p10.jpg" alt="แน๊ปและอาย ยิ้มด้วยกัน">
+      </div>
+
+      <div class="c-oval rv" data-d="2">
+        <div class="c-oval-in">
+          <small>You're invited to<br>the wedding of</small>
+          <b class="script">Eye</b>
+          <i class="script">&amp;</i>
+          <b class="script">Nap</b>
+          <span class="c-oval-th">อาย &amp; แน๊ป</span>
+          <small class="c-oval-date">10 . 01 . 27</small>
         </div>
       </div>
-    </section>
 
-    <section>
-      <header class="sec-head reveal"><span class="idx">01</span><h2>ขอเรียนเชิญ</h2><span class="en">Invitation</span></header>
-      <div class="invite-grid">
-        <div class="reveal">
-          <p>ด้วยความยินดียิ่ง ขอเรียนเชิญท่านร่วมเป็นเกียรติในงานมงคลสมรสของ</p>
-          <p class="couple-line">แน็ป<span>&amp;</span>อาย</p>
-        </div>
-        <div class="parents reveal">
-          <div>บุตรของ<b>(ชื่อบิดา – มารดา)</b></div>
-          <div>บุตรีของ<b>(ชื่อบิดา – มารดา)</b></div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <header class="sec-head reveal"><span class="idx">02</span><h2>เจ้าบ่าว & เจ้าสาว</h2><span class="en">The couple</span></header>
-      <div class="couple">
-        <div class="person groom reveal">
-          <div class="photo"><div class="ph p4">Groom</div></div>
-          <div class="role">The Groom</div>
-          <h3>แน็ป<span class="en-name">Nap</span></h3>
-        </div>
-        <div class="person bride reveal">
-          <div class="photo"><div class="ph p3">Bride</div></div>
-          <div class="role">The Bride</div>
-          <h3>อาย<span class="en-name">Eye</span></h3>
-          <p>ธัญญารัตน์ เรื่องเวช · Thanyarat Rueangwet</p>
-        </div>
-        <p class="story reveal">
-          จากวันที่ได้พบกัน สู่คนที่อยากใช้ชีวิตด้วยกันในทุกวันต่อจากนี้
-          ขอบคุณที่เป็นส่วนหนึ่งของเรื่องราวของเรา
-        </p>
-      </div>
-    </section>
-
-    <section>
-      <header class="sec-head reveal"><span class="idx">03</span><h2>ภาพความทรงจำ</h2><span class="en">Gallery</span></header>
-      <div class="gallery reveal" id="gallery">
-        <button aria-label="ดูรูปที่ 1"><div class="ph p1">01</div></button>
-        <button aria-label="ดูรูปที่ 2"><div class="ph p2">02</div></button>
-        <button aria-label="ดูรูปที่ 3"><div class="ph p3">03</div></button>
-        <button aria-label="ดูรูปที่ 4"><div class="ph p5">04</div></button>
-        <button aria-label="ดูรูปที่ 5"><div class="ph p4">05</div></button>
-        <button class="wide" aria-label="ดูรูปที่ 6"><div class="ph p2">06</div></button>
-      </div>
-    </section>
-
-    <div class="split">
-      <section>
-        <header class="sec-head reveal"><span class="idx">04</span><h2>กำหนดการ</h2><span class="en">Schedule</span></header>
-        <ol class="sched">
-          <li class="reveal"><time>07:09</time><div><b>พิธีสงฆ์</b><small>พระสงฆ์ 9 รูปเจริญพระพุทธมนต์</small></div></li>
-          <li class="reveal"><time>09:09</time><div><b>พิธีแห่ขันหมาก</b><small>พิธีสู่ขอ หลั่งน้ำพระพุทธมนต์</small></div></li>
-          <li class="reveal"><time>10:30</time><div><b>พิธีรดน้ำสังข์</b><small>ร่วมอวยพรคู่บ่าวสาว</small></div></li>
-          <li class="reveal"><time>11:30</time><div><b>ร่วมรับประทานอาหาร</b><small>ฉลองมงคลสมรสร่วมกัน</small></div></li>
-        </ol>
-      </section>
-
-      <section>
-        <header class="sec-head reveal"><span class="idx">05</span><h2>สถานที่จัดงาน</h2><span class="en">Venue</span></header>
-        <dl class="info reveal">
-          <div><dt>Place</dt><dd>ศูนย์พัฒนาเด็กเล็กบ้านพรุยายชี</dd></div>
-          <div><dt>Date</dt><dd>วันอาทิตย์ที่ 10 มกราคม 2570<small>10 January 2027</small></dd></div>
-          <div><dt>Dress</dt><dd>โทนพาสเทล ชมพูหม่น ครีม
-            <div class="swatches"><span style="background:#EEE2E0"></span><span style="background:#D6B5B3"></span><span style="background:#EFE6DC"></span><span style="background:#FFFFFF"></span></div>
-          </dd></div>
-        </dl>
-        <div class="map reveal">
-          <iframe src="https://maps.google.com/maps?q=9.414160,98.998172&amp;z=15&amp;output=embed" title="แผนที่ ศูนย์พัฒนาเด็กเล็กบ้านพรุยายชี" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        <div class="btn-row reveal">
-          <a class="btn" href="https://maps.app.goo.gl/jGXVc8wTSyMyhtSRA" target="_blank" rel="noopener">เปิด Google Maps</a>
-          <a class="btn ghost" href="#" id="addCal" target="_blank" rel="noopener">บันทึกลงปฏิทิน</a>
-        </div>
-      </section>
+      <figure class="c-pola p1 rv" data-d="3"><img src="assets/photos/t/p06.jpg" alt="แน๊ปและอายในชุดแต่งงาน"></figure>
+      <figure class="c-pola p2 rv" data-d="4"><img src="assets/photos/t/p21.jpg" alt="แน๊ปอุ้มอายในสวนสน"><figcaption class="script">forever</figcaption></figure>
     </div>
-  </div>
+    <p class="music-hint rv" id="musicHint">แตะที่แผ่นเสียงเพื่อเปิด/ปิดเพลง</p>
+    <a class="scroll-cue" href="#invite" aria-label="เลื่อนลง"><span></span></a>
+  </section>
 
-  <div class="wish-wrap">
-    <div class="container">
-      <section id="wishes" class="wish-grid">
-        <div class="wish-intro">
-          <header class="sec-head reveal"><span class="idx">06</span><h2>ส่งคำอวยพร</h2><span class="en">Wishes</span></header>
-          <p class="muted reveal">ฝากคำอวยพรและรูปภาพความประทับใจถึงบ่าวสาว</p>
-        </div>
+  <!-- INVITATION + COUPLE -->
+  <section class="sec paper scallop invite" id="invite">
+    <p class="eyebrow rv">The Wedding Ceremony</p>
+    <svg class="rings rv"><use href="#i-rings"/></svg>
 
-        <div>
-          <form id="wishForm" class="reveal" novalidate>
-            <div>
-              <label for="name">ชื่อของคุณ</label>
-              <input id="name" name="name" required maxlength="120" autocomplete="name" placeholder="ชื่อ – นามสกุล หรือชื่อเล่น">
-            </div>
-            <div>
-              <label for="msg">คำอวยพร</label>
-              <textarea id="msg" name="message" required maxlength="1000" placeholder="เขียนคำอวยพรถึงบ่าวสาว..."></textarea>
-            </div>
-            <div>
-              <span class="field-label">แนบรูปภาพ (ไม่บังคับ)</span>
-              <label class="picker" id="picker" for="photo">
-                <input type="file" id="photo" accept="image/*">
-                <span class="picker-empty"><b>+</b>เลือกรูปภาพ<small>ระบบจะย่อขนาดรูปให้อัตโนมัติ</small></span>
-                <img id="photoPreview" alt="รูปที่เลือก" hidden>
-              </label>
-              <button type="button" class="link-btn" id="photoRemove" hidden>ลบรูปนี้</button>
-            </div>
-            <input type="hidden" name="invited_as" id="invitedAs">
-            <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-            <button class="btn" type="submit" id="wishBtn">ส่งคำอวยพร</button>
-            <p class="note" id="formError" role="alert" hidden></p>
-          </form>
-
-          <div class="thanks" id="thanks">
-            <div class="kicker">Thank you</div>
-            <h3 id="thanksTitle">ขอบคุณสำหรับคำอวยพร</h3>
-            <p class="muted">บ่าวสาวได้รับคำอวยพรของคุณแล้ว</p>
-            <button type="button" class="link-btn" id="wishAgain">ส่งคำอวยพรอีกครั้ง</button>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <div class="container">
-    <section id="gift">
-      <header class="sec-head reveal"><span class="idx">07</span><h2>ร่วมแสดงความยินดี</h2><span class="en">Gift</span></header>
-      <p class="muted reveal">สำหรับท่านที่ต้องการร่วมแสดงความยินดีผ่านช่องทางออนไลน์</p>
-      <div class="gift-card reveal">
-        <img class="qr" src="assets/qr-placeholder.svg" alt="QR Code พร้อมเพย์สำหรับโอนเงิน" width="220" height="220">
-        <div class="gift-info">
-          <div class="kicker" style="margin-top:20px">PromptPay</div>
-          <div class="acct-name">(ชื่อบัญชีพร้อมเพย์)</div>
-          <div class="acct-row"><span id="acctNo">0xx-xxx-xxxx</span><button type="button" class="link-btn" id="copyAcct">คัดลอก</button></div>
-          <a class="btn ghost" href="assets/qr-placeholder.svg" download="promptpay-qr">บันทึกรูป QR</a>
-          <p class="hint">บันทึกรูป QR แล้วเปิดแอปธนาคาร เลือกสแกนจากรูปภาพ</p>
-        </div>
+    <div class="hosts rv">
+      <div class="host">
+        <p class="host-side">ฝ่ายเจ้าสาว</p>
+        <ul>
+          <li>นายสนิท เรืองเวช <span>(ปู่นิท)</span></li>
+          <li>นางบุญครัน เรืองเวช <span>(ย่าครัน)</span></li>
+          <li>นางวรรณา ทองมณี <span>(แม่เฒ่าวรรณา)</span></li>
+          <li>นายปราโมทย์ เรืองเวช <span>(พ่อผู้ใหญ่โมทย์)</span></li>
+          <li>นางเยาวณี เรืองเวช <span>(แม่นี)</span></li>
+        </ul>
       </div>
-    </section>
-  </div>
+      <p class="host-and">และ</p>
+      <div class="host">
+        <p class="host-side">ฝ่ายเจ้าบ่าว</p>
+        <ul>
+          <li>นายประมวล ริยาพันธ์ <span>(พ่อ)</span></li>
+          <li>นางยุภา ริยาพันธ์ <span>(แม่)</span></li>
+        </ul>
+      </div>
+    </div>
 
-  <footer>
-    <div class="names">N <span>&amp;</span> E</div>
-    <p>ขอบคุณที่ร่วมเป็นส่วนหนึ่งในวันสำคัญของเรา</p>
+    <p class="lead rv">มีความยินดีขอเรียนเชิญท่านเพื่อเป็นเกียรติ<br>เนื่องในพิธีมงคลสมรส ระหว่าง</p>
+
+    <div class="couple">
+      <div class="person rv" data-d="1">
+        <div class="arch"><img src="assets/photos/t/p29.jpg" alt="เจ้าสาว อาย" loading="lazy"></div>
+        <p class="role">The Bride</p>
+        <p class="script pname">Eye</p>
+        <p class="pth">อาย</p>
+        <p class="fullname">นางสาวธัญญารัตน์<br>เรืองเวช</p>
+        <p class="en-name">Thanyarat</p>
+      </div>
+      <span class="couple-amp script rv" data-d="2">&amp;</span>
+      <div class="person rv" data-d="3">
+        <div class="arch"><img src="assets/photos/t/p28.jpg" alt="เจ้าบ่าว แน๊ป" loading="lazy"></div>
+        <p class="role">The Groom</p>
+        <p class="script pname">Nap</p>
+        <p class="pth">แน๊ป</p>
+        <p class="fullname">นายอดิศักดิ์<br>ริยาพันธ์</p>
+        <p class="en-name">Adisak</p>
+      </div>
+    </div>
+
+    <div class="when rv">
+      <span>วันอาทิตย์ที่ 10 มกราคม พ.ศ. 2570</span>
+      <i></i>
+      <span>ณ ศูนย์พัฒนาเด็กเล็กบ้านพรุยายชี<br><small>ม.4 ต.ปากหมาก อ.ไชยา จ.สุราษฎร์ธานี</small></span>
+    </div>
+    <p class="apology rv">(ขออภัยหากมิได้มาเรียนเชิญด้วยตนเอง)</p>
+  </section>
+
+  <!-- FILM interlude -->
+  <section class="film" aria-label="วิดีโอบ่าวสาว">
+    <video class="autoplay" muted loop playsinline preload="none" poster="assets/video/beach.jpg">
+      <source src="assets/video/beach.mp4" type="video/mp4">
+    </video>
+    <div class="film-text">
+      <p class="script rv">Always, Together</p>
+      <p class="rv" data-d="1">จากวันที่ได้พบกัน สู่คนที่อยากใช้ชีวิตด้วยกัน<br>ในทุกวันต่อจากนี้ — ขอบคุณที่เป็นส่วนหนึ่งของเรื่องราวของเรา</p>
+    </div>
+  </section>
+
+  <!-- SAVE THE DATE -->
+  <section class="sec dark date" id="date">
+    <div class="gilt rv">
+      <img src="assets/photos/p27.jpg" alt="แน๊ปและอายในสวนสน" loading="lazy">
+      <svg class="gc tl"><use href="#corner"/></svg><svg class="gc tr"><use href="#corner"/></svg>
+      <svg class="gc bl"><use href="#corner"/></svg><svg class="gc br"><use href="#corner"/></svg>
+    </div>
+
+    <h2 class="t-script rv">January</h2>
+    <p class="eyebrow gold rv">10 January 2027 · Sunday</p>
+    <p class="date-th rv">วันอาทิตย์ที่ 10 มกราคม พ.ศ. 2570</p>
+
+    <div class="cal rv" id="cal" aria-label="ปฏิทินเดือนมกราคม 2027"></div>
+
+    <p class="eyebrow cd-title rv">Countdown until forever</p>
+    <div class="countdown rv" aria-label="นับถอยหลังสู่วันงาน">
+      <div><b id="cd-d">0</b><small>วัน</small></div>
+      <div><b id="cd-h">0</b><small>ชั่วโมง</small></div>
+      <div><b id="cd-m">0</b><small>นาที</small></div>
+      <div><b id="cd-s">0</b><small>วินาที</small></div>
+    </div>
+
+    <div class="btn-row rv">
+      <a class="btn gold" id="addGcal" href="#" target="_blank" rel="noopener">Google Calendar</a>
+      <button class="btn line" id="addIcs" type="button">บันทึกลงปฏิทิน (.ics)</button>
+    </div>
+  </section>
+
+  <!-- DETAILS / SCHEDULE -->
+  <section class="sec dark details" id="details">
+    <div class="pearls" aria-hidden="true"></div>
+    <h2 class="t-script rv"><small>The</small>Details</h2>
+    <p class="sub rv">กำหนดการ</p>
+    <ol class="timeline">
+      <li class="rv"><svg><use href="#i-lotus"/></svg><time>07:09</time><b>พิธีสงฆ์</b><span>พระสงฆ์ 9 รูปเจริญพระพุทธมนต์</span></li>
+      <li class="rv"><svg><use href="#i-phan"/></svg><time>09:09</time><b>พิธีแห่ขันหมาก</b><span>พิธีสู่ขอ หลั่งน้ำพระพุทธมนต์</span></li>
+      <li class="rv"><svg><use href="#i-conch"/></svg><time>11:09</time><b>พิธีรดน้ำสังข์</b><span>ร่วมอวยพรคู่บ่าวสาว</span></li>
+      <li class="rv"><svg><use href="#i-cheers"/></svg><time>09:00 – 12:00</time><b>รับประทานอาหาร</b><span>ฉลองมงคลสมรสร่วมกัน</span></li>
+    </ol>
+  </section>
+
+  <!-- VENUE -->
+  <section class="sec paper scallop venue" id="venue">
+    <h2 class="t-script rv"><small>The</small>Venue</h2>
+    <p class="venue-name rv">ศูนย์พัฒนาเด็กเล็กบ้านพรุยายชี</p>
+    <p class="venue-sub rv">ม.4 ต.ปากหมาก อ.ไชยา จ.สุราษฎร์ธานี</p>
+    <p class="venue-sub rv">วันอาทิตย์ที่ 10 มกราคม 2570 · เริ่มพิธี 07:09 น.</p>
+    <div class="map rv">
+      <iframe src="https://maps.google.com/maps?q=9.414160,98.998172&amp;z=15&amp;output=embed" title="แผนที่ ศูนย์พัฒนาเด็กเล็กบ้านพรุยายชี" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div class="btn-row rv">
+      <a class="btn dark" href="https://maps.app.goo.gl/jGXVc8wTSyMyhtSRA" target="_blank" rel="noopener">Google Maps</a>
+      <a class="btn line-dark" href="https://www.google.com/maps/dir/?api=1&amp;destination=9.414160,98.998172" target="_blank" rel="noopener">นำทางไปงาน</a>
+    </div>
+
+    <!-- THEME COLOR -->
+    <div class="dress" id="dress">
+      <h2 class="t-script rv"><small>Theme</small>Color</h2>
+      <p class="rv">ธีมสีของงาน</p>
+      <div class="swatches rv">
+        <figure><span style="--c:#FF9899"></span><figcaption>Pink</figcaption></figure>
+        <figure><span style="--c:#783000"></span><figcaption>Brown</figcaption></figure>
+        <figure><span style="--c:#2E6418"></span><figcaption>Green</figcaption></figure>
+        <figure><span style="--c:#FEBE98"></span><figcaption>Peach</figcaption></figure>
+        <figure><span style="--c:#FFE7C1"></span><figcaption>Cream</figcaption></figure>
+      </div>
+    </div>
+
+    <!-- INVITATION CARD -->
+    <div class="dress invite-card" id="card">
+      <h2 class="t-script rv"><small>Our</small>Invitation</h2>
+      <p class="rv">การ์ดเชิญ · แตะที่การ์ดเพื่อดูภาพใหญ่</p>
+      <div class="cards rv" id="cards">
+        <button type="button" data-i="0" aria-label="ดูการ์ดด้านหน้า"><img src="assets/card/front.jpg" alt="การ์ดเชิญด้านหน้า Thanyarat &amp; Adisak" loading="lazy"></button>
+        <button type="button" data-i="1" aria-label="ดูการ์ดด้านหลัง"><img src="assets/card/back.jpg" alt="การ์ดเชิญด้านหลัง รายชื่อเจ้าภาพ กำหนดการ และสถานที่" loading="lazy"></button>
+      </div>
+      <div class="btn-row rv">
+        <a class="btn dark" href="assets/card/front.jpg" download="eye-nap-card-front.jpg">บันทึกการ์ดหน้า</a>
+        <a class="btn line-dark" href="assets/card/back.jpg" download="eye-nap-card-back.jpg">บันทึกการ์ดหลัง</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="sec dark gallery-sec" id="gallery-sec">
+    <div class="g-cover rv">
+      <img src="assets/photos/p05.jpg" alt="แน๊ปและอายในชุดแต่งงาน" loading="lazy">
+      <div class="g-cover-title"><span class="script">Pre-Wedding</span><span class="eyebrow">Gallery</span></div>
+    </div>
+    <div class="gallery" id="gallery"></div>
+    <div class="gallery more" id="galleryMore" hidden></div>
+    <button class="btn line wide-btn rv" id="moreBtn" type="button">ดูภาพทั้งหมด</button>
+  </section>
+
+  <!-- WISHES -->
+  <section class="sec dark rsvp" id="rsvp" aria-label="ส่งคำอวยพร">
+    <h2 class="t-script rv"><small>Send your</small>Wishes</h2>
+    <p class="sub rv">ฝากคำอวยพรถึงบ่าวสาว<br>พร้อมแชร์รูปความประทับใจ</p>
+    <p class="hashtag rv">#ENTHEWEDDING</p>
+
+    <div class="card rv">
+      <form id="wishForm" novalidate>
+        <div class="field">
+          <label for="name">ชื่อของคุณ</label>
+          <input id="name" name="name" required maxlength="120" autocomplete="name" placeholder="ชื่อ – นามสกุล หรือชื่อเล่น">
+        </div>
+
+        <div class="field">
+          <label for="msg">คำอวยพร</label>
+          <textarea id="msg" name="message" required maxlength="1000" placeholder="เขียนคำอวยพรถึงบ่าวสาว..."></textarea>
+        </div>
+
+        <div class="field">
+          <span class="flabel">แชร์รูปความประทับใจ (ไม่บังคับ)</span>
+          <label class="picker" id="picker" for="photo">
+            <input type="file" id="photo" accept="image/*">
+            <span class="picker-empty"><b>+</b>เลือกรูปภาพ<small>ระบบจะย่อขนาดรูปให้อัตโนมัติ</small></span>
+            <img id="photoPreview" alt="รูปที่เลือก" hidden>
+          </label>
+          <button type="button" class="link-btn" id="photoRemove" hidden>ลบรูปนี้</button>
+        </div>
+
+        <input type="hidden" name="invited_as" id="invitedAs">
+        <div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+        <button class="btn dark full" type="submit" id="wishBtn">ส่งคำอวยพร</button>
+        <p class="note" id="formError" role="alert" hidden></p>
+      </form>
+
+      <div class="thanks" id="thanks" hidden>
+        <p class="script">Thank you</p>
+        <h3 id="thanksTitle">ขอบคุณสำหรับคำอวยพร</h3>
+        <p>บ่าวสาวได้รับคำอวยพรของคุณแล้ว</p>
+        <button type="button" class="link-btn" id="wishAgain">ส่งคำอวยพรอีกครั้ง</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFT -->
+  <section class="sec paper scallop gift" id="gift">
+    <h2 class="t-script rv"><small>With</small>Love</h2>
+    <p class="sub rv">สำหรับท่านที่ต้องการร่วมแสดงความยินดีผ่านช่องทางออนไลน์</p>
+    <div class="ticket rv">
+      <img class="qr" src="assets/qr-promptpay.png" alt="QR Code พร้อมเพย์ บัญชี ธัญญารัตน์ เรืองเวช" width="220" height="220">
+      <div class="ticket-info">
+        <p class="eyebrow">Thai QR · PromptPay</p>
+        <p class="acct-name">ธัญญารัตน์ เรืองเวช</p>
+        <p class="acct-bank">ธนาคารกรุงไทย</p>
+        <a class="btn line-dark" href="assets/promptpay-qr.jpg" download="promptpay-thanyarat.jpg">บันทึกรูป QR</a>
+        <p class="hint">บันทึกรูป QR แล้วเปิดแอปธนาคาร เลือกสแกนจากรูปภาพ</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="end">
+    <img src="assets/photos/p00.jpg" alt="แน๊ปและอายที่ชายหาด" loading="lazy">
+    <div class="end-text">
+      <p class="script">Thank you</p>
+      <p>ขอบคุณที่ร่วมเป็นส่วนหนึ่งในวันสำคัญของเรา</p>
+      <svg class="end-seal"><use href="#seal"/></svg>
+      <p class="hashtag">#ENTHEWEDDING</p>
+      <p class="eyebrow">Eye &amp; Nap · 10.01.2027</p>
+    </div>
   </footer>
 </main>
 
-<a href="#wishes" class="fab" id="fab">ส่งคำอวยพร</a>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="ดูรูป">
-  <button class="close" id="lbClose" aria-label="ปิด">&times;</button>
-  <div class="ph" id="lbImg"></div>
+<!-- Floating controls (aligned to the card column) -->
+<div class="float-layer" id="floatLayer">
+  <button class="mini-vinyl" id="miniVinyl" type="button" aria-label="เปิด/ปิดเพลง"><span></span></button>
+  <a class="fab" id="fab" href="#rsvp">ส่งคำอวยพร</a>
 </div>
 
-<script>
-(function(){
-  // --- Guest name from URL: ?to=คุณสมชาย ---
-  try{
-    var to = new URLSearchParams(location.search).get('to');
-    if(to){
-      document.getElementById('guestTo').textContent = 'เรียน ' + to.slice(0,60);
-      document.getElementById('invitedAs').value = to.slice(0,120);
-    }
-  }catch(e){}
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="ดูรูป" hidden>
+  <img id="lbImg" alt="">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="ปิด">&times;</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="รูปก่อนหน้า">&#8249;</button>
+  <button class="lb-btn lb-next" id="lbNext" aria-label="รูปถัดไป">&#8250;</button>
+  <p class="lb-count" id="lbCount"></p>
+</div>
 
-  // --- Envelope open ---
-  var env = document.getElementById('envelope'), cover = document.getElementById('cover'), main = document.getElementById('main');
-  var opened = false;
-  function openCard(){
-    if(opened) return; opened = true;
-    env.classList.add('open');
-    setTimeout(function(){
-      cover.classList.add('gone');
-      document.body.classList.remove('locked');
-      main.classList.add('show');
-      revealVisible();
-    }, 1900);
-  }
-  env.addEventListener('click', openCard);
-  env.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openCard(); }});
+<!-- Background music: put your song at assets/music.mp3 (controls hide themselves if the file is missing) -->
+<audio id="bgm" src="assets/music.mp3" loop preload="metadata"></audio>
 
-  // --- Scroll reveal ---
-  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function(entries){
-    entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
-  },{threshold:.12}) : null;
-  function revealVisible(){
-    document.querySelectorAll('.reveal').forEach(function(el){ if(io) io.observe(el); else el.classList.add('in'); });
-  }
-
-  // --- Floating "send wishes" button: show after hero, hide once the wishes section is reached ---
-  var fab = document.getElementById('fab'), wishes = document.getElementById('wishes');
-  function updateFab(){
-    if(!opened){ return; }
-    var past = window.scrollY > window.innerHeight * 0.9;
-    var reached = wishes.getBoundingClientRect().top < window.innerHeight;
-    fab.classList.toggle('on', past && !reached);
-  }
-  window.addEventListener('scroll', updateFab, {passive:true});
-
-  // --- Countdown ---
-  var target = new Date('2027-01-10T07:09:00+07:00').getTime();
-  function tick(){
-    var s = Math.floor(Math.max(0, target - Date.now())/1000);
-    document.getElementById('cd-d').textContent = Math.floor(s/86400);
-    document.getElementById('cd-h').textContent = Math.floor(s%86400/3600);
-    document.getElementById('cd-m').textContent = Math.floor(s%3600/60);
-    document.getElementById('cd-s').textContent = s%60;
-  }
-  tick(); setInterval(tick,1000);
-
-  // --- Gallery lightbox ---
-  var lb = document.getElementById('lightbox'), lbImg = document.getElementById('lbImg');
-  document.getElementById('gallery').addEventListener('click', function(e){
-    var b = e.target.closest('button'); if(!b) return;
-    var ph = b.querySelector('.ph');
-    if(!ph) return;
-    lbImg.className = ph.className; lbImg.textContent = ph.textContent;
-    lb.classList.add('on');
-  });
-  function closeLb(){ lb.classList.remove('on'); }
-  document.getElementById('lbClose').addEventListener('click', closeLb);
-  lb.addEventListener('click', function(e){ if(e.target===lb) closeLb(); });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLb(); });
-
-  // --- Add to calendar (Google Calendar link) ---
-  document.getElementById('addCal').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-    + '&text=' + encodeURIComponent('งานแต่งงาน แน็ป & อาย')
-    + '&dates=20270110T000900Z/20270110T060000Z'
-    + '&location=' + encodeURIComponent('ศูนย์พัฒนาเด็กเล็กบ้านพรุยายชี')
-    + '&details=' + encodeURIComponent('แผนที่: https://maps.app.goo.gl/jGXVc8wTSyMyhtSRA');
-
-  // --- Copy PromptPay number ---
-  var copyBtn = document.getElementById('copyAcct');
-  copyBtn.addEventListener('click', function(){
-    var num = document.getElementById('acctNo').textContent.replace(/[^0-9]/g,'');
-    function done(){ copyBtn.textContent = 'คัดลอกแล้ว'; setTimeout(function(){ copyBtn.textContent = 'คัดลอก'; }, 1800); }
-    if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(num).then(done, function(){}); }
-    else{
-      var t = document.createElement('textarea'); t.value = num; t.style.position = 'fixed'; t.style.opacity = '0';
-      document.body.appendChild(t); t.select(); try{ document.execCommand('copy'); done(); }catch(e){} t.remove();
-    }
-  });
-
-  // --- Wishes: name + message + optional photo → wish.php ---
-  var form = document.getElementById('wishForm');
-  var btn = document.getElementById('wishBtn'), errBox = document.getElementById('formError');
-  var photoInput = document.getElementById('photo'), picker = document.getElementById('picker');
-  var preview = document.getElementById('photoPreview'), removeBtn = document.getElementById('photoRemove');
-  var photoBlob = null, previewUrl = null;
-  function showError(msg){ errBox.textContent = msg; errBox.hidden = false; }
-
-  // Shrink to max 1600px JPEG in the browser (smaller upload, strips location metadata)
-  function resizeImage(file){
-    return new Promise(function(resolve, reject){
-      var url = URL.createObjectURL(file), img = new Image();
-      img.onload = function(){
-        var s = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight));
-        var w = Math.round(img.naturalWidth * s), h = Math.round(img.naturalHeight * s);
-        var c = document.createElement('canvas'); c.width = w; c.height = h;
-        var ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0,0,w,h); ctx.drawImage(img,0,0,w,h);
-        URL.revokeObjectURL(url);
-        c.toBlob(function(b){ b ? resolve(b) : reject(new Error('resize')); }, 'image/jpeg', 0.85);
-      };
-      img.onerror = function(){ URL.revokeObjectURL(url); reject(new Error('decode')); };
-      img.src = url;
-    });
-  }
-  function clearPhoto(){
-    photoBlob = null; photoInput.value = '';
-    if(previewUrl){ URL.revokeObjectURL(previewUrl); previewUrl = null; }
-    preview.hidden = true; preview.removeAttribute('src');
-    picker.classList.remove('has'); removeBtn.hidden = true;
-  }
-  photoInput.addEventListener('change', function(){
-    errBox.hidden = true;
-    var file = photoInput.files && photoInput.files[0];
-    if(!file){ return; }
-    resizeImage(file).then(function(blob){
-      clearPhoto();
-      photoBlob = blob; previewUrl = URL.createObjectURL(blob);
-      preview.src = previewUrl; preview.hidden = false;
-      picker.classList.add('has'); removeBtn.hidden = false;
-    }).catch(function(){
-      clearPhoto();
-      showError('เปิดไฟล์รูปนี้ไม่ได้ กรุณาเลือกรูป JPG หรือ PNG');
-    });
-  });
-  removeBtn.addEventListener('click', clearPhoto);
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    errBox.hidden = true;
-    var nameEl = form.elements.name, msgEl = form.elements.message;
-    var name = nameEl.value.trim();
-    if(!name){ nameEl.focus(); showError('กรุณากรอกชื่อ'); return; }
-    if(!msgEl.value.trim()){ msgEl.focus(); showError('กรุณาเขียนคำอวยพร'); return; }
-
-    var fd = new FormData(form);
-    if(photoBlob){ fd.append('photo', photoBlob, 'photo.jpg'); }
-    btn.disabled = true; btn.textContent = 'กำลังส่ง...';
-    fetch('wish.php', { method:'POST', body:fd })
-      .then(function(r){ return r.json().catch(function(){ return {ok:false}; }); })
-      .then(function(res){
-        if(!res.ok){
-          throw new Error(res.error || (res.errors && Object.values(res.errors)[0]) || 'ส่งไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
-        }
-        document.getElementById('thanksTitle').textContent = 'ขอบคุณค่ะ คุณ' + name;
-        form.style.display = 'none';
-        document.getElementById('thanks').classList.add('on');
-        msgEl.value = ''; clearPhoto();
-      })
-      .catch(function(err){
-        showError(err && err.message && err.message !== 'Failed to fetch' ? err.message : 'เชื่อมต่อไม่ได้ กรุณาลองใหม่อีกครั้ง');
-      })
-      .finally(function(){ btn.disabled = false; btn.textContent = 'ส่งคำอวยพร'; });
-  });
-  document.getElementById('wishAgain').addEventListener('click', function(){
-    document.getElementById('thanks').classList.remove('on');
-    form.style.display = '';
-  });
-})();
-</script>
+<script src="assets/site.js?v=5"></script>
 </body>
 </html>
