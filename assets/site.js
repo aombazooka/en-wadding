@@ -44,15 +44,47 @@
   function setPlaying(on){ vinyl.classList.toggle('playing', on); mini.classList.toggle('playing', on); }
   audio.addEventListener('play', function(){ setPlaying(true); });
   audio.addEventListener('pause', function(){ setPlaying(false); });
-  function playMusic(){ if(musicOk){ var p = audio.play(); if(p && p.catch) p.catch(function(){}); } }
-  function toggleMusic(){ if(!musicOk) return; if(audio.paused) playMusic(); else audio.pause(); }
+  // soft background level; fades in so it never starts abruptly (iOS ignores volume, so the file itself is mastered quiet)
+  var MUSIC_VOL = 0.55, fadeTimer = null, userStopped = false;
+  // returns the play() promise so callers can tell whether the browser allowed it
+  function playMusic(){
+    if(!musicOk) return Promise.reject();
+    if(!audio.paused) return Promise.resolve();   // already playing → don't restart the fade
+    clearInterval(fadeTimer);
+    try{ audio.volume = 0; }catch(e){}
+    var p = audio.play() || Promise.resolve();
+    fadeTimer = setInterval(function(){
+      var v = Math.min(MUSIC_VOL, audio.volume + MUSIC_VOL / 30);
+      try{ audio.volume = v; }catch(e){}
+      if(v >= MUSIC_VOL) clearInterval(fadeTimer);
+    }, 100);
+    p.catch(function(){ clearInterval(fadeTimer); });
+    return p;
+  }
+  function toggleMusic(){
+    if(!musicOk) return;
+    if(audio.paused){ userStopped = false; playMusic().catch(function(){}); }
+    else { userStopped = true; audio.pause(); }
+  }
   vinyl.addEventListener('click', toggleMusic);
   mini.addEventListener('click', toggleMusic);
+
+  // Autoplay: try as soon as the page opens. Most browsers block sound until the visitor
+  // touches the page, so if that's refused, start on the very first tap/click/key anywhere.
+  var unlockEvents = ['pointerdown', 'touchend', 'click', 'keydown'];
+  function unlock(e){
+    if(e && e.target && e.target.closest && e.target.closest('#vinyl, #miniVinyl')) return; // the toggle handles itself
+    removeUnlock();
+    if(!userStopped && audio.paused) playMusic().catch(function(){});
+  }
+  function removeUnlock(){ unlockEvents.forEach(function(t){ document.removeEventListener(t, unlock, true); }); }
+  unlockEvents.forEach(function(t){ document.addEventListener(t, unlock, true); });
+  playMusic().then(removeUnlock, function(){ /* blocked → wait for the first gesture */ });
   // pause when the tab is hidden, resume when back
   var wasPlaying = false;
   document.addEventListener('visibilitychange', function(){
     if(document.hidden){ wasPlaying = !audio.paused; audio.pause(); }
-    else if(wasPlaying){ playMusic(); }
+    else if(wasPlaying){ playMusic().catch(function(){}); }
   });
 
   /* ---------- Envelope / cover ---------- */
@@ -62,7 +94,7 @@
   function openCard(){
     if(opened) return; opened = true;
     env.classList.add('open');
-    playMusic(); // inside the tap → browsers allow audio
+    if(!userStopped) playMusic().catch(function(){}); // inside the tap → browsers allow audio
     setTimeout(function(){
       cover.classList.add('gone');
       body.classList.remove('locked');

@@ -142,7 +142,8 @@ main.show{opacity:1}
    ========================================================= */
 .hero{padding-top:70px;padding-bottom:64px;overflow:hidden}
 .hero > .eyebrow{color:var(--gold)}
-.collage{position:relative;width:100%;aspect-ratio:10/13.2;margin-top:18px}
+/* top margin leaves room for the vinyl, which rises above the collage box */
+.collage{position:relative;width:100%;aspect-ratio:10/13.2;margin-top:calc(22px + 8%)}
 
 .c-record{position:absolute;left:21%;top:9%;width:58%;aspect-ratio:1.45;z-index:2}
 .c-env-back{position:absolute;inset:0;background:#E2D3BB;border-radius:3px;box-shadow:0 14px 30px rgba(0,0,0,.35)}
@@ -201,7 +202,7 @@ body.no-music .vinyl-btn,body.no-music .music-hint{display:none}
 .c-pola.rv.in.p2{transform:rotate(8deg)}
 .c-film.rv.in{transform:rotate(-4deg)}
 
-.music-hint{margin-top:34px;font-size:13px;color:var(--on-dark-2)}
+.music-hint{margin-top:calc(22px + 13%);font-size:13px;color:var(--on-dark-2)}
 .scroll-cue{display:block;width:22px;height:36px;margin:22px auto 0;border:1px solid var(--line-dark);border-radius:12px;position:relative}
 .scroll-cue span{position:absolute;left:50%;top:7px;width:3px;height:7px;border-radius:2px;background:var(--gold);transform:translateX(-50%);animation:cue 1.8s ease-in-out infinite}
 @keyframes cue{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
