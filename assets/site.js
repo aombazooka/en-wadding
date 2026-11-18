@@ -45,7 +45,7 @@
   audio.addEventListener('play', function(){ setPlaying(true); });
   audio.addEventListener('pause', function(){ setPlaying(false); });
   // soft background level; fades in so it never starts abruptly (iOS ignores volume, so the file itself is mastered quiet)
-  var MUSIC_VOL = 0.55, fadeTimer = null, userStopped = false;
+  var MUSIC_VOL = 0.8, fadeTimer = null, userStopped = false;
   // returns the play() promise so callers can tell whether the browser allowed it
   function playMusic(){
     if(!musicOk) return Promise.reject();
